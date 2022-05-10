@@ -38,4 +38,12 @@ public class HabitService {
         return id;
     }
 
+    // 취미 카운트 초기화
+    public void updateHabits() {
+        List<Habit> habits = habitRepository.findAll();
+        for (Habit habit : habits) {
+            habit.changeCount(0);
+            habitRepository.save(habit);
+        }
+    }
 }

@@ -44,8 +44,6 @@ public class HabitController {
 
     @PutMapping("/{id}")
     public HabitResponseDto updateHabit(@PathVariable("id") Long id, @RequestBody HabitUpdateRequestDto habitUpdateRequestDto){
-        log.info(String.valueOf(id));
-
         Habit habit = habitService.updateHabit(id, habitUpdateRequestDto.getCount());
         HabitResponseDto habitResponseDto = HabitResponseDto.builder()
                 .id(habit.getId())
@@ -54,6 +52,11 @@ public class HabitController {
                 .build();
 
         return habitResponseDto;
+    }
+
+    @PutMapping
+    public void resetHabitsCount() {
+        habitService.updateHabits();
     }
 
     @DeleteMapping("/{id}")

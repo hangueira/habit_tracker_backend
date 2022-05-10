@@ -99,4 +99,42 @@ class HabitServiceTest {
         assertThat(habits.size()).isEqualTo(1);
 
     }
+
+    @Test
+    void 전체_취미_카운트_초기화() {
+        // given
+        Habit habit1 = Habit.builder()
+                .name("coding")
+                .count(3)
+                .build();
+
+        Habit habit2 = Habit.builder()
+                .name("running")
+                .count(5)
+                .build();
+
+        Habit habit3 = Habit.builder()
+                .name("coding2")
+                .count(7)
+                .build();
+
+        Habit habit4 = Habit.builder()
+                .name("running2")
+                .count(9)
+                .build();
+
+        habitService.insertHabit(habit1);
+        habitService.insertHabit(habit2);
+        habitService.insertHabit(habit3);
+        habitService.insertHabit(habit4);
+
+        // when
+        habitService.updateHabits();
+
+        // then
+        List<Habit> habits = habitService.getHabits();
+        for (Habit habit : habits) {
+            assertThat(habit.getCount()).isEqualTo(0);
+        }
+    }
 }
